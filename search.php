@@ -1,21 +1,31 @@
 <?php
 
 // checking arguments' length, if less than 1 stop
-if ($argc > 1) {
+if ($argc > 3) {
+
+	// check if the file exists in this location
+	// and if the extension is csv
+	if(!file_exists($argv[1])) {
+		die("Please insert the correct location of the CSV file.");
+	}
+	if(pathinfo($argv[1])['extension'] != "csv") {
+		die("Please try again with a csv file.");
+	}
 
 	// checking the index, if it's not valid stop.
-	if(!is_numeric($argv[1]) || $argv[1] < 1 || empty($argv[1])) {
+	if(!is_numeric($argv[2]) || $argv[2] < 1 || empty($argv[2])) {
 		die("Please insert a valid index.");
 	}
 
 	// initializing variables
-	$column_index = intval($argv[1]) - 1;
-	$search_key = strval($argv[2]);
+	$column_index = intval($argv[2]) - 1;
+	$search_key = strval($argv[3]);
 	$rows_array = array();
 	$row = 1;
+	$filename = $argv[1]; 
 
 	// read file as csv and handle the stream with a limited length to 1000 and comma as a separator
-	if (($handle = fopen("file.csv", "r")) !== FALSE) {
+	if (($handle = fopen($filename, "r")) !== FALSE) {
 		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 			
 			// check if the index is out of bound
@@ -51,7 +61,7 @@ if ($argc > 1) {
 	}
 }
 else {
-	die("Try again with valid arguments");
+	die("Try again with valid arguments.");
 }
 
 ?>
