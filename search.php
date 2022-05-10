@@ -53,7 +53,7 @@ if ($argc > 3) {
 	// print matches found
 	if(count($rows_array) > 0) { 
 		foreach($rows_array as $value) {
-			echo implode(', ', $value) . "\n";
+			echo implode(', ', $value) . ";\n";
 		}
 	}
 	else {
